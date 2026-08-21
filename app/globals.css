@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: #0B0C0E;
+  color: #E8E8E6;
+  overflow-x: hidden;
+}
+
+/* ── Glass Utilities ── */
+.glass-dark {
+  background: rgba(11, 12, 14, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-green {
+  background: rgba(19, 34, 25, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Terracota Glow Button ── */
+.btn-terra {
+  background: linear-gradient(135deg, #D96B43 0%, #C85A32 100%);
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 24px rgba(217, 107, 67, 0.25);
+}
+
+.btn-terra:hover {
+  background: linear-gradient(135deg, #C85A32 0%, #B54820 100%);
+  box-shadow: 0 6px 32px rgba(217, 107, 67, 0.45);
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0B0C0E; }
+::-webkit-scrollbar-thumb {
+  background: #2A382B;
+  border-radius: 4px;
+  border: 2px solid #0B0C0E;
+}
+::-webkit-scrollbar-thumb:hover { background: #3D5240; }
+
+/* ── Animations ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.animate-fade-up { animation: fadeInUp 0.7s ease forwards; }
+.animate-float   { animation: float 4s ease-in-out infinite; }
+
+/* ── Section Divider ── */
+.section-divider {
+  width: 48px;
+  height: 2px;
+  background: #D96B43;
+  border-radius: 2px;
+}
+
+/* ── Tag Badge ── */
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid rgba(217, 107, 67, 0.35);
+  color: #D96B43;
+  background: rgba(217, 107, 67, 0.08);
+}
