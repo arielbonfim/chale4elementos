@@ -91,14 +91,6 @@ export const Avaliacoes: React.FC = () => {
 
         {/* Airbnb link — secondary, low contrast */}
         <div className="text-center">
-          <a
-            href="https://www.airbnb.com.br"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-white/30 hover:text-white/50 transition-colors underline underline-offset-4"
-          >
-            Ver todas as avaliações no Airbnb →
-          </a>
         </div>
       </div>
     </section>

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { MapPin, Clock, ShieldCheck, Car, Navigation, Play, Pause } from "lucide-react";
+import React from "react";
+import { MapPin, Clock, ShieldCheck, Car, Navigation } from "lucide-react";
 
 const distancias = [
   { icon: Clock, label: "A menos de 5 minutos da rodovia" },
@@ -11,23 +11,14 @@ const distancias = [
   { icon: Car, label: "Estacionamento interno e seguro" },
 ];
 
-const MAPS_URL = "https://maps.google.com/?q=Teresópolis,+RJ";
+const ENDERECO =
+  "Rua Soares Teixeira, condomínio fazenda inglesa, lote 1 quadra 15, Pessegueiros, Teresópolis, RJ, 25980-150";
+
+const ENDERECO_ENCODED = encodeURIComponent(ENDERECO);
+const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${ENDERECO_ENCODED}`;
+const MAPS_EMBED_URL = `https://www.google.com/maps?q=${ENDERECO_ENCODED}&output=embed`;
 
 export const Localizacao: React.FC = () => {
-  const [playing, setPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (playing) {
-      videoRef.current.pause();
-      setPlaying(false);
-    } else {
-      videoRef.current.play();
-      setPlaying(true);
-    }
-  };
-
   return (
     <section id="localizacao" className="py-28 bg-granito-dark relative overflow-hidden">
       <div className="absolute top-0 right-0 w-96 h-96 bg-mata/40 rounded-full blur-[120px] pointer-events-none" aria-hidden="true" />
@@ -43,7 +34,7 @@ export const Localizacao: React.FC = () => {
           <div className="section-divider" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 lg:items-stretch">
 
           {/* Left — text */}
           <div className="space-y-8">
@@ -67,9 +58,10 @@ export const Localizacao: React.FC = () => {
             </ul>
 
             <div>
-              <p className="text-xs text-white/35 mb-4 uppercase tracking-widest font-semibold">
+              <p className="text-xs text-white/35 mb-2 uppercase tracking-widest font-semibold">
                 Teresópolis — Região Serrana do Rio de Janeiro
               </p>
+              <p className="text-sm text-white/50 mb-4 leading-relaxed">{ENDERECO}</p>
               <a
                 href={MAPS_URL}
                 target="_blank"
@@ -82,44 +74,49 @@ export const Localizacao: React.FC = () => {
             </div>
           </div>
 
-          {/* Right — video */}
-          <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-preto group">
-            <video
-              ref={videoRef}
-              src="/videos/chegada.mp4"
-              poster="/images/chegada-poster.jpg"
-              playsInline
-              className="w-full h-full object-cover"
-              onEnded={() => setPlaying(false)}
+          {/* Right — map preview */}
+          <a
+            href={MAPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative aspect-video lg:aspect-auto lg:h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-granito-dark group block"
+            aria-label="Abrir localização no Google Maps"
+          >
+            <div className="absolute inset-0 overflow-hidden bg-granito-dark">
+              <iframe
+                src={MAPS_EMBED_URL}
+                className="w-full h-full border-0 pointer-events-none scale-[1.02] [filter:invert(92%)_hue-rotate(180deg)_brightness(0.82)_contrast(0.95)_saturate(0.75)]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Mapa da localização do chalé"
+              />
+            </div>
+
+            <div
+              className="absolute inset-0 bg-granito-dark/25 mix-blend-multiply pointer-events-none"
+              aria-hidden="true"
             />
 
-            {!playing && (
-              <div
-                className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer bg-preto/55 group-hover:bg-preto/45 transition-colors"
-                onClick={togglePlay}
-                role="button"
-                aria-label="Assistir vídeo de chegada ao chalé"
-              >
-                <div className="relative flex items-center justify-center mb-3">
-                  <span className="absolute w-16 h-16 rounded-full bg-terracota/25 animate-ping" aria-hidden="true" />
-                  <div className="relative w-[60px] h-[60px] rounded-full bg-terracota flex items-center justify-center shadow-xl shadow-terracota/30 hover:scale-105 transition-transform">
-                    <Play className="w-6 h-6 text-white ml-1 fill-white" aria-hidden="true" />
-                  </div>
-                </div>
-                <span className="text-sm text-white/65 font-light">Ver chegada ao chalé</span>
-              </div>
-            )}
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-preto/85 via-preto/20 to-mata/10 group-hover:from-preto/95 transition-colors pointer-events-none"
+              aria-hidden="true"
+            />
 
-            {playing && (
-              <button
-                onClick={togglePlay}
-                className="absolute bottom-4 left-4 p-2.5 rounded-lg bg-preto/70 text-white hover:text-terracota transition-colors"
-                aria-label="Pausar vídeo"
-              >
-                <Pause className="w-5 h-5" aria-hidden="true" />
-              </button>
-            )}
-          </div>
+            <div className="absolute bottom-0 inset-x-0 p-5 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-10 h-10 rounded-full bg-terracota flex items-center justify-center shrink-0 shadow-lg shadow-terracota/30">
+                  <MapPin className="w-5 h-5 text-white" aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-white truncate">Condomínio Fazenda Inglesa</p>
+                  <p className="text-xs text-white/55">Toque para abrir no Maps</p>
+                </div>
+              </div>
+              <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center shrink-0 group-hover:bg-terracota group-hover:border-terracota transition-colors">
+                <Navigation className="w-4 h-4 text-white" aria-hidden="true" />
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </section>

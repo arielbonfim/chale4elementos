@@ -27,7 +27,7 @@ export const Hero: React.FC = () => {
           poster="/images/hero-fallback.jpg"
           className="w-full h-full object-cover scale-105"
         >
-          <source src="/videos/hero.mp4" type="video/mp4" />
+          <source src="/videos/v2.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="absolute inset-0 bg-gradient-to-r from-preto/50 via-transparent to-transparent" />
