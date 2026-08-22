@@ -6,38 +6,38 @@ import { X } from "lucide-react";
 
 const photos = [
   {
-    src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80",
-    alt: "Hidromassagem com vista para a Serra dos Órgãos",
+    src: "/images/aerea.webp",
+    alt: "Seu recanto na Serra dos Órgãos",
     span: "col-span-2 row-span-2",
   },
   {
-    src: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
+    src: "/images/interior.webp",
     alt: "Interior com lareira e decoração em madeira",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1544025162-d76538b2a21d?auto=format&fit=crop&w=800&q=80",
+    src: "/images/area gourmet proximo.webp",
     alt: "Área gourmet com churrasqueira e forno a lenha",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80",
-    alt: "Fachada do chalé em contraste com a mata atlântica",
+    src: "/images/fachada.webp",
+    alt: "Fachada do chalé",
     span: "col-span-2 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80",
-    alt: "Mata atlântica densa envolvendo o chalé",
+    src: "/images/jardim.webp",
+    alt: "Jardim",
     span: "col-span-1 row-span-2",
   },
   {
-    src: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
-    alt: "Quarto com decoração romântica e vista para a natureza",
+    src: "/images/decoracao romantica.webp",
+    alt: "Quarto com decoração romântica",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80",
-    alt: "Sofá aconchegante à lareira com neblina ao fundo",
+    src: "/images/sofá.webp",
+    alt: "Sofá aconchegante à lareira",
     span: "col-span-1 row-span-1",
   },
 ];

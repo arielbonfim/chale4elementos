@@ -8,10 +8,10 @@ export const Teresopolis: React.FC = () => {
     <section id="teresopolis" className="relative py-0 overflow-hidden">
       <div className="relative h-[70vh] min-h-[480px] w-full">
         <Image
-          src="https://images.unsplash.com/photo-1519038100-0f174a40c595?auto=format&fit=crop&w=1600&q=80"
+          src="/images/teresopolis.webp"
           alt="Serra dos Órgãos e Mata Atlântica em Teresópolis ao amanhecer"
           fill
-          className="object-cover brightness-[0.45]"
+          className="object-cover brightness-[0.3]"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-preto/90 via-preto/50 to-transparent" />

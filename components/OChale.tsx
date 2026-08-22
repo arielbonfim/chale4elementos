@@ -39,34 +39,31 @@ export const OChale: React.FC = () => {
         <div className="grid grid-cols-12 gap-4 sm:gap-5 mb-20">
           <div className="col-span-12 sm:col-span-7 relative h-72 sm:h-[460px] rounded-2xl overflow-hidden group">
             <Image
-              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=85"
-              alt="Vista da Serra dos Órgãos ao entardecer"
+              src="/images/ochaleanoitecer.webp"
+              alt="Vista do chalé ao entardecer"
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-75"
+              className="object-cover"
               sizes="(max-width:640px) 100vw, 58vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-preto/70 to-transparent" />
           </div>
           <div className="col-span-12 sm:col-span-5 flex flex-col gap-4 sm:gap-5">
             <div className="relative h-48 sm:h-[220px] rounded-2xl overflow-hidden group">
               <Image
-                src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"
+                src="/images/ochalehidromassagem.webp"
                 alt="Hidromassagem com vista para a mata atlântica"
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-75"
+                className="object-cover"
                 sizes="(max-width:640px) 100vw, 42vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-preto/60 to-transparent" />
             </div>
             <div className="relative h-48 sm:h-[224px] rounded-2xl overflow-hidden group">
               <Image
-                src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80"
+                src="/images/ochalelareira.webp"
                 alt="Interior aconchegante com lareira e madeira"
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-75"
+                className="object-cover"
                 sizes="(max-width:640px) 100vw, 42vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-preto/60 to-transparent" />
             </div>
           </div>
         </div>
@@ -74,9 +71,9 @@ export const OChale: React.FC = () => {
         {/* ── Citação ── */}
         <blockquote className="border-l-2 border-terracota pl-7 max-w-lg">
           <p className="font-serif text-2xl sm:text-3xl italic text-white/80 leading-relaxed">
-            &ldquo;Longe da rotina,
+            &ldquo;Momentos inesquecíveis,
             <br />
-            em casal.&rdquo;
+            Longe da rotina.&rdquo;
           </p>
         </blockquote>
       </div>

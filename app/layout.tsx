@@ -2,22 +2,23 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Chalé 4 Elementos | Refúgio a Dois em Teresópolis, Serra Fluminense",
+  title: "Chalé 4 Elementos | Refúgio em Teresópolis, Serra Fluminense",
   description:
-    "Um refúgio a dois na mata atlântica, diante da serra. Hidromassagem com vista, lareira, área gourmet e privacidade total em Teresópolis, RJ. Reserve diretamente via WhatsApp.",
+    "Um refúgio na mata atlântica, diante da serra. Hidromassagem com vista, lareira, área gourmet e privacidade total em Teresópolis, RJ. Reserve diretamente via WhatsApp.",
   keywords: [
     "Chalé Teresópolis",
     "Hospedagem romântica Serra Fluminense",
     "Chalé com hidromassagem Teresópolis",
-    "Refúgio a dois RJ",
+    "Hospedagem Serra Fluminense",
     "Chalé 4 Elementos",
     "Lua de mel Serra dos Órgãos",
+    "Lua de mel Teresópolis",
   ],
   authors: [{ name: "Chalé 4 Elementos" }],
   openGraph: {
     title: "Chalé 4 Elementos | Refúgio a Dois em Teresópolis",
     description:
-      "Um refúgio a dois na mata atlântica, diante da serra. Hidromassagem, lareira, área gourmet e privacidade total.",
+      "Um refúgio na mata atlântica, diante da serra. Hidromassagem, lareira, área gourmet e privacidade total.",
     url: "https://chale4elementos.com.br",
     siteName: "Chalé 4 Elementos",
     locale: "pt_BR",

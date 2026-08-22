@@ -49,7 +49,7 @@ export const Hero: React.FC = () => {
 
         {/* Subtitle */}
         <p className="text-lg sm:text-2xl text-white/70 font-light leading-relaxed max-w-2xl mb-10 tracking-wide">
-          Um refúgio a dois na mata atlântica,
+          Um refúgio na mata atlântica,
           <br className="hidden sm:block" /> diante da serra.
         </p>
 

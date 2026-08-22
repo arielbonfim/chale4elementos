@@ -16,8 +16,8 @@ const pilares = [
     title: "Espaço inteiramente seu",
     body: "Espaço inteiramente seu, dentro de um condomínio com segurança 24 horas.",
     image:
-      "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80",
-    imageAlt: "Área externa privativa cercada por mata atlântica densa",
+      "/images/inteiramente seu.webp",
+    imageAlt: "Área externa privativa",
   },
   {
     id: "vista",
@@ -27,19 +27,19 @@ const pilares = [
     title: "A serra emoldurada",
     body: "A serra emoldurada pela janela e pela hidromassagem aquecida, em qualquer hora do dia.",
     image:
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80",
-    imageAlt: "Vista panorâmica da Serra dos Órgãos ao amanhecer com neblina",
+      "/images/vista.webp",
+    imageAlt: "Vista panorâmica",
   },
   {
     id: "sabor",
     icon: Flame,
     num: "03",
     tag: "Sabor",
-    title: "Celebrar à mesa",
+    title: "Celebre à mesa",
     body: "Churrasqueira, forno a lenha e um mini bar completo, para celebrar à mesa.",
     image:
-      "https://images.unsplash.com/photo-1544025162-d76538b2a21d?auto=format&fit=crop&w=1000&q=80",
-    imageAlt: "Área gourmet rústica com forno a lenha aceso",
+      "/images/area gourmet.webp",
+    imageAlt: "Área gourmet rústica com forno a lenha",
   },
 ];
 
@@ -50,7 +50,6 @@ export const Experiencia: React.FC = () => {
         className="absolute inset-0 bg-gradient-to-b from-preto via-mata to-preto opacity-80"
         aria-hidden="true"
       />
-
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* ── Header ── */}
         <div className="text-center mb-20">
@@ -82,7 +81,6 @@ export const Experiencia: React.FC = () => {
                     src={p.image}
                     alt={p.imageAlt}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.65]"
                     sizes="(max-width:1024px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-preto/80 to-transparent" />

@@ -79,7 +79,7 @@ export const Comodidades: React.FC = () => {
         {/* ── Header ── */}
         <div className="mb-20 max-w-xl">
           <span className="tag-badge mb-5 block w-fit">
-            Tudo o que você precisa, nada que sobra
+            Tudo o que você deseja
           </span>
           <h2 className="font-serif text-4xl sm:text-6xl font-bold text-white leading-tight mb-6">
             Uma estrutura completa
