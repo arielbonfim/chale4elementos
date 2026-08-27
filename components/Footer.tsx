@@ -80,7 +80,7 @@ export const Footer: React.FC = () => {
 
           {/* Airbnb — discreto, no rodapé */}
           <a
-            href="https://www.airbnb.com.br"
+            href="https://www.airbnb.com.br/rooms/1652473266637923212?source_impression_id=p3_1787857808_P3p_Rc0eOaL3LEP7&review_page_entrypoint=show_all"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-white/40 transition-colors"
