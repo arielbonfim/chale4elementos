@@ -18,7 +18,7 @@ const WhatsAppIcon = () => (
 export const Hero: React.FC = () => {
   return (
     <section
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-mata"
+      className="relative w-full min-h-[100svh] sm:min-h-screen flex items-center justify-center overflow-hidden bg-mata"
     >
       {/* ── Video Background ── */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -37,35 +37,41 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* ── Content ── */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 sm:px-10 flex flex-col items-center text-center py-32 pt-36">
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-5 sm:px-10 flex flex-col items-center text-center justify-center py-20 sm:py-32 pt-24 sm:pt-36 min-h-[100svh]">
         {/* Location tag */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-preto/50 backdrop-blur-md border border-white/10 text-white/75 text-xs tracking-widest uppercase mb-8">
-          <MapPin className="w-3.5 h-3.5 text-terracota shrink-0" aria-hidden="true" />
+        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-preto/50 backdrop-blur-md border border-white/10 text-white/75 text-[10px] sm:text-xs tracking-widest uppercase mb-3 sm:mb-8">
+          <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-terracota shrink-0" aria-hidden="true" />
           Teresópolis — Serra Fluminense
         </div>
 
         {/* H1 */}
-        <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl font-bold text-white leading-[1.05] tracking-tight mb-6 drop-shadow-2xl">
+        <h1 className="font-serif text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-6 drop-shadow-2xl">
           Chalé{" "}
           <em className="italic text-terracota not-italic">4 Elementos</em>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg sm:text-2xl text-white/70 font-light leading-relaxed max-w-2xl mb-10 tracking-wide">
-          Cercado pelas montanhas mais belas da região serrana, o Chalé 4 Elementos é o lugar perfeito para viver dias inesquecíveis. 
-          <br/><br/> Sua privacidade única, combinada com todo o conforto que o Chalé oferece, criam uma atmosfera intimista para casais que desejam descansar, se reconectar e celebrar momentos especiais.
-          <br/><br/> Cada ambiente foi cuidadosamente pensado para oferecer uma experiência completa.
-        </p>
+        <div className="text-[13px] sm:text-base md:text-xl text-white/80 font-light leading-relaxed max-w-2xl mb-4 sm:mb-8 tracking-wide px-2 sm:px-0 space-y-2 sm:space-y-3">
+          <p>
+            Cercado pelas montanhas mais belas da região serrana, o Chalé 4 Elementos é o lugar perfeito para viver dias inesquecíveis.
+          </p>
+          <p>
+            Sua privacidade única, combinada com todo o conforto que o Chalé oferece, criam uma atmosfera intimista para casais que desejam descansar, se reconectar e celebrar momentos especiais.
+          </p>
+          <p>
+            Cada ambiente foi cuidadosamente pensado para oferecer uma experiência completa.
+          </p>
+        </div>
 
         {/* ── CTA Buttons ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full max-w-lg mb-5">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 w-full max-w-xs sm:max-w-lg mb-3 sm:mb-5">
           {/* Botão Ver disponibilidade (Airbnb) */}
           <a
             href={AIRBNB_URL}
             id="hero-airbnb-cta"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-terra w-full sm:w-64 py-4 px-6 rounded-full text-sm font-semibold tracking-wide text-center uppercase flex items-center justify-center shadow-xl hover:shadow-terracota/40"
+            className="btn-terra w-full sm:w-64 py-3 sm:py-4 px-5 sm:px-6 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-center uppercase flex items-center justify-center shadow-xl hover:shadow-terracota/40"
           >
             Ver disponibilidade
           </a>
@@ -74,7 +80,7 @@ export const Hero: React.FC = () => {
           <a
             href="#galeria"
             id="hero-galeria-cta"
-            className="w-full sm:w-64 py-4 px-6 rounded-full text-sm font-semibold tracking-wide text-white bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/25 hover:border-white/50 transition-all text-center uppercase flex items-center justify-center shadow-lg"
+            className="w-full sm:w-64 py-3 sm:py-4 px-5 sm:px-6 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-white bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/25 hover:border-white/50 transition-all text-center uppercase flex items-center justify-center shadow-lg"
           >
             Conhecer o Chalé
           </a>
@@ -86,7 +92,7 @@ export const Hero: React.FC = () => {
           id="hero-whatsapp-cta"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors mb-10 group"
+          className="inline-flex items-center gap-2 text-xs sm:text-sm text-white/80 hover:text-white transition-colors mb-4 sm:mb-8 group"
         >
           <WhatsAppIcon />
           <span className="group-hover:underline underline-offset-4">
@@ -95,12 +101,12 @@ export const Hero: React.FC = () => {
         </a>
 
         {/* Airbnb rating badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 border border-white/10 text-sm text-white/70">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-black/40 border border-white/10 text-xs sm:text-sm text-white/70">
           <div className="flex gap-0.5" aria-label="5 estrelas no Airbnb">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
+                className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-amber-400 text-amber-400"
                 aria-hidden="true"
               />
             ))}
@@ -112,11 +118,11 @@ export const Hero: React.FC = () => {
         {/* Scroll indicator */}
         <a
           href="#o-chale"
-          className="mt-16 flex flex-col items-center gap-1.5 text-white/30 hover:text-white/60 transition-colors animate-float"
+          className="mt-4 sm:mt-12 flex flex-col items-center gap-1 text-white/30 hover:text-white/60 transition-colors animate-float"
           aria-label="Rolar para o conteúdo"
         >
-          <span className="text-[10px] uppercase tracking-widest">Explorar</span>
-          <ChevronDown className="w-4 h-4" aria-hidden="true" />
+          <span className="text-[9px] sm:text-[10px] uppercase tracking-widest">Explorar</span>
+          <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4" aria-hidden="true" />
         </a>
       </div>
     </section>
