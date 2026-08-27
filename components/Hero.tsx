@@ -51,7 +51,7 @@ export const Hero: React.FC = () => {
         </h1>
 
         {/* Subtitle */}
-        <div className="text-[13px] sm:text-base md:text-xl text-white/80 font-light leading-relaxed max-w-2xl mb-4 sm:mb-8 tracking-wide px-2 sm:px-0 space-y-2 sm:space-y-3">
+        <div className="text-[15px] sm:text-base md:text-xl text-white/80 font-light leading-relaxed max-w-2xl mb-4 sm:mb-8 tracking-wide px-2 sm:px-0 space-y-2 sm:space-y-3">
           <p>
             Cercado pelas montanhas mais belas da região serrana, o Chalé 4 Elementos é o lugar perfeito para viver dias inesquecíveis.
           </p>
