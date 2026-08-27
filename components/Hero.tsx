@@ -45,13 +45,13 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* H1 */}
-        <h1 className="font-serif text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-6 drop-shadow-2xl">
+        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-6 drop-shadow-2xl">
           Chalé{" "}
           <em className="italic text-terracota not-italic">4 Elementos</em>
         </h1>
 
         {/* Subtitle */}
-        <div className="text-[15px] sm:text-base md:text-xl text-white/80 font-light leading-relaxed max-w-2xl mb-4 sm:mb-8 tracking-wide px-2 sm:px-0 space-y-2 sm:space-y-3">
+        <div className="text-[16px] sm:text-base md:text-xl text-white/80 font-light leading-relaxed max-w-2xl mb-4 sm:mb-8 tracking-wide px-2 sm:px-0 space-y-2 sm:space-y-3">
           <p>
             Cercado pelas montanhas mais belas da região serrana, o Chalé 4 Elementos é o lugar perfeito para viver dias inesquecíveis.
           </p>
