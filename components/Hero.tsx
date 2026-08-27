@@ -45,7 +45,7 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* H1 */}
-        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-6 drop-shadow-2xl">
+        <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-6 drop-shadow-2xl">
           Chalé{" "}
           <em className="italic text-terracota not-italic">4 Elementos</em>
         </h1>
