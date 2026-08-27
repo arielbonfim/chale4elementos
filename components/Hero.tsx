@@ -64,14 +64,14 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* ── CTA Buttons ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 w-full max-w-xs sm:max-w-lg mb-3 sm:mb-5">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full max-w-xs sm:max-w-lg mb-5 sm:mb-6">
           {/* Botão Ver disponibilidade (Airbnb) */}
           <a
             href={AIRBNB_URL}
             id="hero-airbnb-cta"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-terra w-full sm:w-64 py-3 sm:py-4 px-5 sm:px-6 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-center uppercase flex items-center justify-center shadow-xl hover:shadow-terracota/40"
+            className="btn-terra w-full sm:w-64 py-3.5 sm:py-4 px-5 sm:px-6 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-center uppercase flex items-center justify-center shadow-xl hover:shadow-terracota/40"
           >
             Ver disponibilidade
           </a>
@@ -80,7 +80,7 @@ export const Hero: React.FC = () => {
           <a
             href="#galeria"
             id="hero-galeria-cta"
-            className="w-full sm:w-64 py-3 sm:py-4 px-5 sm:px-6 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-white bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/25 hover:border-white/50 transition-all text-center uppercase flex items-center justify-center shadow-lg"
+            className="w-full sm:w-64 py-3.5 sm:py-4 px-5 sm:px-6 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-white bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/25 hover:border-white/50 transition-all text-center uppercase flex items-center justify-center shadow-lg"
           >
             Conhecer o Chalé
           </a>
@@ -92,7 +92,7 @@ export const Hero: React.FC = () => {
           id="hero-whatsapp-cta"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-xs sm:text-sm text-white/80 hover:text-white transition-colors mb-4 sm:mb-8 group"
+          className="inline-flex items-center gap-2 text-xs sm:text-sm text-white/80 hover:text-white transition-colors mb-5 sm:mb-8 group"
         >
           <WhatsAppIcon />
           <span className="group-hover:underline underline-offset-4">
@@ -118,7 +118,7 @@ export const Hero: React.FC = () => {
         {/* Scroll indicator */}
         <a
           href="#o-chale"
-          className="mt-4 sm:mt-12 flex flex-col items-center gap-8 text-white/30 hover:text-white/60 transition-colors animate-float"
+          className="mt-6 sm:mt-12 flex flex-col items-center gap-1.5 text-white/30 hover:text-white/60 transition-colors animate-float"
           aria-label="Rolar para o conteúdo"
         >
           <span className="text-[9px] sm:text-[10px] uppercase tracking-widest">Explorar</span>
