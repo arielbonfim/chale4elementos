@@ -118,7 +118,7 @@ export const Hero: React.FC = () => {
         {/* Scroll indicator */}
         <a
           href="#o-chale"
-          className="mt-4 sm:mt-12 flex flex-col items-center gap-2 text-white/30 hover:text-white/60 transition-colors animate-float"
+          className="mt-4 sm:mt-12 flex flex-col items-center gap-8 text-white/30 hover:text-white/60 transition-colors animate-float"
           aria-label="Rolar para o conteúdo"
         >
           <span className="text-[9px] sm:text-[10px] uppercase tracking-widest">Explorar</span>
