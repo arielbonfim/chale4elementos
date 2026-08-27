@@ -12,7 +12,7 @@ const photos = [
   },
   {
     src: "/images/interior.webp",
-    alt: "Interior com lareira e decoração em madeira",
+    alt: "Interior com fogo de chão e decoração em madeira",
     span: "col-span-1 row-span-1",
   },
   {
@@ -37,7 +37,7 @@ const photos = [
   },
   {
     src: "/images/sofá.webp",
-    alt: "Sofá aconchegante à lareira",
+    alt: "Sofá aconchegante próximo ao fogo de chão",
     span: "col-span-1 row-span-1",
   },
 ];

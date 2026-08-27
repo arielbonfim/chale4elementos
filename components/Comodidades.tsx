@@ -11,12 +11,11 @@ import {
   CookingPot,
   Refrigerator,
   Coffee,
-  Wine,
-  Pizza,
-  Droplets,
+  Car,
+  Tv2,
+  CarFront,
   Mic2,
-  Lock,
-  ShowerHead,
+  Mountain,
 } from "lucide-react";
 
 interface Item {
@@ -34,9 +33,10 @@ const categories: Category[] = [
     title: "Descanso e romantismo",
     items: [
       { icon: Waves, label: "Hidromassagem com vista para a serra" },
-      { icon: Flame, label: "Lareira de fácil acendimento, com lenha inclusa" },
+      { icon: Flame, label: "Fogo de chão com acendedores e lenha à disposição" },
       { icon: Bed, label: "Cama e sofá confortáveis" },
       { icon: Sparkles, label: "Decoração romântica sob encomenda" },
+      { icon: Mountain, label: "Pergolado com rede para contemplar a vista das montanhas" },
     ],
   },
   {
@@ -49,20 +49,18 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "Sabores e mimos",
+    title: "Comodidades",
     items: [
-      { icon: Coffee, label: "Café da manhã disponível" },
-      { icon: Wine, label: "Mini bar com vinhos e espumantes" },
-      { icon: Pizza, label: "Snacks, doces e pizzas congeladas" },
-      { icon: Droplets, label: "Água, refrigerante e sucos" },
+      { icon: Coffee, label: "Opções de café da manhã sob encomenda" },
     ],
   },
   {
     title: "Praticidade",
     items: [
-      { icon: Mic2, label: "Assistente de voz Alexa" },
-      { icon: Lock, label: "Self check-in por senha" },
-      { icon: ShowerHead, label: "Chuveiro a gás" },
+      { icon: Car, label: "Fácil acesso para qualquer tipo de veículo" },
+      { icon: CarFront, label: "Garagem privativa" },
+      { icon: Tv2, label: "Smartv com Netflix e prime vídeo" },
+      { icon: Mic2, label: "Automação com Alexa" },
     ],
   },
 ];

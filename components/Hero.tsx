@@ -49,8 +49,9 @@ export const Hero: React.FC = () => {
 
         {/* Subtitle */}
         <p className="text-lg sm:text-2xl text-white/70 font-light leading-relaxed max-w-2xl mb-10 tracking-wide">
-          Um refúgio na mata atlântica,
-          <br className="hidden sm:block" /> diante da serra.
+        Cercado pelas montanhas mais belas da região serrana, o Chalé 4 Elementos é o lugar perfeito para viver dias inesquecíveis. 
+        <br/><br/> Sua privacidade única, combinada com todo o conforto que o Chalé oferece, criam uma atmosfera intimista para casais que desejam descansar, se reconectar e celebrar momentos especiais.
+        <br/><br/> Cada ambiente foi cuidadosamente pensado para oferecer uma experiência completa.
         </p>
 
         {/* CTA */}

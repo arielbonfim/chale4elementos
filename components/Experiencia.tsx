@@ -36,9 +36,9 @@ const pilares = [
     num: "03",
     tag: "Sabor",
     title: "Celebre à mesa",
-    body: "Churrasqueira, forno a lenha e um mini bar completo, para celebrar à mesa.",
+    body: "Para você mesmo preparar aquele churrasco na brasa ou aquela pizza que só um forno a lenha legítimo é capaz de assar.",
     image:
-      "/images/area gourmet.webp",
+      "/images/area gourmet 2.webp",
     imageAlt: "Área gourmet rústica com forno a lenha",
   },
 ];
@@ -57,7 +57,7 @@ export const Experiencia: React.FC = () => {
             O que torna esta estadia diferente
           </span>
           <h2 className="font-serif text-4xl sm:text-6xl font-bold text-white">
-            Três razões para vir
+            Três razões para se hospedar
           </h2>
         </div>
 

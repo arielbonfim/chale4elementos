@@ -26,11 +26,11 @@ export const OChale: React.FC = () => {
           </h2>
           <div className="section-divider mb-8" />
           <p className="text-white/65 text-base sm:text-lg leading-relaxed font-light">
-            Novo, privativo e pensado nos mínimos detalhes — o cenário certo para uma lua de mel,
+            Novo, privativo e pensado nos mínimos detalhes — o cenário ideal para uma lua de mel,
             um pedido de casamento, um aniversário ou apenas alguns dias fora da rotina.
           </p>
           <p className="text-white/65 text-base sm:text-lg leading-relaxed font-light mt-4">
-            A hidromassagem de frente para a serra, a lareira acesa ao entardecer, o silêncio
+            A hidromassagem de frente para a serra, o fogo de chão aceso ao entardecer, o silêncio
             interrompido só pelos pássaros. Tudo isso a poucos minutos do centro de Teresópolis.
           </p>
         </div>

@@ -7,7 +7,7 @@ const reviews = [
   {
     quote:
       "Jacuzzi super confortável com água aquecida e uma vista maravilhosa do chalé e das montanhas",
-    author: null,
+    author: "Alessandra",
   },
   {
     quote:
@@ -28,6 +28,11 @@ const reviews = [
     quote:
       "A estadia foi perfeita, tudo no chalé foi pensado para que a experiência do hóspede seja completa.",
     author: null,
+  },
+  {
+    quote:
+      "Dá para perceber que foi tudo pensado e planejado para proporcionar uma boa experiência.",
+    author: "Júlia",
   },
 ];
 
