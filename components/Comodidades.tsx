@@ -16,6 +16,7 @@ import {
   CarFront,
   Mic2,
   Mountain,
+  Gem,
 } from "lucide-react";
 
 interface Item {
@@ -52,6 +53,7 @@ const categories: Category[] = [
     title: "Comodidades",
     items: [
       { icon: Coffee, label: "Opções de café da manhã sob encomenda" },
+      { icon: Gem, label: "Massagem relaxante sob agendamento" },
     ],
   },
   {
@@ -67,9 +69,9 @@ const categories: Category[] = [
 
 export const Comodidades: React.FC = () => {
   return (
-    <section id="comodidades" className="py-28 bg-granito-dark relative">
+    <section id="comodidades" className="py-28 bg-section-a relative">
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(19,34,25,0.5)_0%,_transparent_70%)] pointer-events-none"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(19,34,25,0.5)_0%,_transparent_70%)] pointer-events-none hidden dark:block"
         aria-hidden="true"
       />
 
@@ -79,7 +81,7 @@ export const Comodidades: React.FC = () => {
           <span className="tag-badge mb-5 block w-fit">
             Tudo o que você deseja
           </span>
-          <h2 className="font-serif text-4xl sm:text-6xl font-bold text-white leading-tight mb-6">
+          <h2 className="font-serif text-4xl sm:text-6xl font-bold text-heading leading-tight mb-6">
             Uma estrutura completa
           </h2>
           <div className="section-divider" />
@@ -90,9 +92,9 @@ export const Comodidades: React.FC = () => {
           {categories.map((cat) => (
             <div
               key={cat.title}
-              className="glass-dark rounded-2xl p-7 border border-white/7 hover:border-terracota/25 transition-colors duration-300"
+              className="card-adaptive rounded-2xl p-7 border border-adaptive hover:border-terracota/25 transition-colors duration-300"
             >
-              <h3 className="font-serif text-lg font-bold text-white mb-6 pb-4 border-b border-white/8">
+              <h3 className="font-serif text-lg font-bold text-heading mb-6 pb-4 border-b border-adaptive">
                 {cat.title}
               </h3>
               <ul className="space-y-4">
@@ -100,13 +102,13 @@ export const Comodidades: React.FC = () => {
                   const Icon = item.icon;
                   return (
                     <li key={item.label} className="flex items-start gap-3.5">
-                      <div className="w-8 h-8 rounded-lg bg-mata flex items-center justify-center shrink-0 mt-0.5 border border-musgo/30">
+                      <div className="w-8 h-8 rounded-lg icon-bg-adaptive flex items-center justify-center shrink-0 mt-0.5">
                         <Icon
                           className="w-4 h-4 text-terracota"
                           aria-hidden="true"
                         />
                       </div>
-                      <span className="text-sm text-white/65 leading-relaxed font-light">
+                      <span className="text-sm text-body leading-relaxed font-light">
                         {item.label}
                       </span>
                     </li>

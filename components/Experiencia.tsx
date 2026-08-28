@@ -43,11 +43,12 @@ const pilares = [
   },
 ];
 
+
 export const Experiencia: React.FC = () => {
   return (
-    <section id="experiencia" className="py-28 bg-mata relative overflow-hidden">
+    <section id="experiencia" className="py-28 bg-section-b relative overflow-hidden">
       <div
-        className="absolute inset-0 bg-gradient-to-b from-preto via-mata to-preto opacity-80"
+        className="absolute inset-0 bg-gradient-to-b from-preto via-mata to-preto opacity-80 pointer-events-none hidden dark:block"
         aria-hidden="true"
       />
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
@@ -56,7 +57,7 @@ export const Experiencia: React.FC = () => {
           <span className="tag-badge mb-6 mx-auto block w-fit">
             O que torna esta estadia diferente
           </span>
-          <h2 className="font-serif text-4xl sm:text-6xl font-bold text-white">
+          <h2 className="font-serif text-4xl sm:text-6xl font-bold text-heading">
             Três razões para se hospedar
           </h2>
         </div>
@@ -73,7 +74,7 @@ export const Experiencia: React.FC = () => {
               >
                 {/* Image */}
                 <div
-                  className={`relative h-72 sm:h-96 lg:h-[440px] rounded-2xl overflow-hidden group ${
+                  className={`relative h-72 sm:h-96 lg:h-[440px] rounded-2xl overflow-hidden shadow-xl group ${
                     even ? "lg:order-1" : "lg:order-2"
                   }`}
                 >
@@ -82,9 +83,10 @@ export const Experiencia: React.FC = () => {
                     alt={p.imageAlt}
                     fill
                     sizes="(max-width:1024px) 100vw, 50vw"
+                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-preto/80 to-transparent" />
-                  <span className="absolute bottom-6 left-6 font-serif text-7xl font-bold text-white/8 leading-none select-none">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <span className="absolute bottom-6 left-6 font-serif text-7xl font-bold text-white/40 dark:text-white/10 leading-none select-none">
                     {p.num}
                   </span>
                 </div>
@@ -105,11 +107,11 @@ export const Experiencia: React.FC = () => {
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-3xl sm:text-4xl font-bold text-white leading-tight">
+                  <h3 className="font-serif text-3xl sm:text-4xl font-bold text-heading leading-tight">
                     {p.title}
                   </h3>
 
-                  <p className="text-white/60 text-base sm:text-lg leading-relaxed font-light">
+                  <p className="text-body text-base sm:text-lg leading-relaxed font-light">
                     {p.body}
                   </p>
 
@@ -144,3 +146,4 @@ export const Experiencia: React.FC = () => {
     </section>
   );
 };
+

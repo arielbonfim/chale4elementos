@@ -5,13 +5,13 @@ import Image from "next/image";
 
 export const OChale: React.FC = () => {
   return (
-    <section id="o-chale" className="py-28 bg-preto relative overflow-hidden">
+    <section id="o-chale" className="py-28 bg-section-a relative overflow-hidden">
       <div
-        className="absolute top-0 left-1/4 w-96 h-96 bg-mata/60 rounded-full blur-[120px] pointer-events-none"
+        className="absolute top-0 left-1/4 w-96 h-96 dark:bg-mata/60 bg-mata/15 rounded-full blur-[120px] pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-0 right-0 w-80 h-80 bg-terra/40 rounded-full blur-[100px] pointer-events-none"
+        className="absolute bottom-0 right-0 w-80 h-80 dark:bg-terra/40 bg-terra/12 rounded-full blur-[100px] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -19,17 +19,17 @@ export const OChale: React.FC = () => {
         {/* ── Tag + Heading ── */}
         <div className="mb-20 max-w-2xl">
           <span className="tag-badge mb-5 block w-fit">Um refúgio para dois</span>
-          <h2 className="font-serif text-4xl sm:text-6xl font-bold text-white leading-tight mb-8">
+          <h2 className="font-serif text-4xl sm:text-6xl font-bold text-heading leading-tight mb-8">
             Feito para durar
             <br />
             na memória
           </h2>
           <div className="section-divider mb-8" />
-          <p className="text-white/65 text-base sm:text-lg leading-relaxed font-light">
+          <p className="text-body text-base sm:text-lg leading-relaxed font-light">
             Novo, privativo e pensado nos mínimos detalhes — o cenário ideal para uma lua de mel,
             um pedido de casamento, um aniversário ou apenas alguns dias fora da rotina.
           </p>
-          <p className="text-white/65 text-base sm:text-lg leading-relaxed font-light mt-4">
+          <p className="text-body text-base sm:text-lg leading-relaxed font-light mt-4">
             A hidromassagem de frente para a serra, o fogo de chão aceso ao entardecer, o silêncio
             interrompido só pelos pássaros. Tudo isso a poucos minutos do centro de Teresópolis.
           </p>
@@ -70,7 +70,7 @@ export const OChale: React.FC = () => {
 
         {/* ── Citação ── */}
         <blockquote className="border-l-2 border-terracota pl-7 max-w-lg">
-          <p className="font-serif text-2xl sm:text-3xl italic text-white/80 leading-relaxed">
+          <p className="font-serif text-2xl sm:text-3xl italic text-quote leading-relaxed">
             &ldquo;Momentos inesquecíveis,
             <br />
             Longe da rotina.&rdquo;

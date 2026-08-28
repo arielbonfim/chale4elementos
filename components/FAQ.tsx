@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "Qual o horário de check-in e checkout?",
-    a: "Consulte as condições diretamente pelo WhatsApp ao reservar.",
+    a: "Check-in: 15:00h | Check-out: 11:00h.",
   },
   {
     q: "Como funciona o check-in?",
@@ -31,13 +31,13 @@ export const FAQ: React.FC = () => {
   const toggle = (i: number) => setOpen(open === i ? null : i);
 
   return (
-    <section id="faq" className="py-28 bg-preto">
+    <section id="faq" className="py-28 bg-section-b">
       <div className="max-w-2xl mx-auto px-6 sm:px-10">
 
         {/* ── Header ── */}
         <div className="text-center mb-14">
           <span className="tag-badge mb-5 mx-auto block w-fit">Dúvidas frequentes</span>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white">
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-heading">
             Perguntas frequentes
           </h2>
         </div>
@@ -49,7 +49,7 @@ export const FAQ: React.FC = () => {
             return (
               <div
                 key={i}
-                className="glass-dark rounded-2xl border border-white/8 overflow-hidden"
+                className="card-adaptive rounded-2xl overflow-hidden"
                 role="listitem"
               >
                 <button
@@ -59,15 +59,19 @@ export const FAQ: React.FC = () => {
                   aria-controls={`faq-answer-${i}`}
                   id={`faq-question-${i}`}
                 >
-                  <span className="font-serif text-base sm:text-lg font-semibold text-white">
+                  <span className="font-serif text-base sm:text-lg font-semibold text-heading">
                     {faq.q}
                   </span>
                   <div
-                    className={`w-8 h-8 rounded-full border border-white/10 flex items-center justify-center shrink-0 transition-all duration-300 ${
-                      isOpen ? "bg-terracota border-terracota rotate-180" : "bg-white/5"
-                    }`}
+                    className={`w-8 h-8 rounded-full border border-adaptive flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? "bg-terracota border-terracota rotate-180" : "dark:bg-white/5 bg-black/5"
+                      }`}
                   >
-                    <ChevronDown className="w-4 h-4 text-white" aria-hidden="true" />
+                    <ChevronDown
+                      className={`w-4 h-4 transition-colors ${
+                        isOpen ? "text-white" : "text-black dark:text-white"
+                      }`}
+                      aria-hidden="true"
+                    />
                   </div>
                 </button>
 
@@ -75,11 +79,10 @@ export const FAQ: React.FC = () => {
                   id={`faq-answer-${i}`}
                   role="region"
                   aria-labelledby={`faq-question-${i}`}
-                  className={`overflow-hidden transition-all duration-300 ${
-                    isOpen ? "max-h-40" : "max-h-0"
-                  }`}
+                  className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-40" : "max-h-0"
+                    }`}
                 >
-                  <p className="px-6 pb-6 text-sm sm:text-base text-white/55 font-light leading-relaxed border-t border-white/5 pt-4">
+                  <p className="px-6 pb-6 text-sm sm:text-base text-body font-light leading-relaxed border-t border-adaptive pt-4">
                     {faq.a}
                   </p>
                 </div>
@@ -89,8 +92,8 @@ export const FAQ: React.FC = () => {
         </div>
 
         {/* ── Closing nudge ── */}
-        <div className="text-center glass-dark rounded-2xl border border-white/8 p-8">
-          <p className="text-white/60 text-sm mb-5 font-light">
+        <div className="text-center card-adaptive rounded-2xl p-8">
+          <p className="text-body text-sm mb-5 font-light">
             Alguma outra dúvida? Fale direto pelo WhatsApp.
           </p>
           <a

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Menu, X, ChevronRight, MapPin } from "lucide-react";
+import { Menu, X, ChevronRight, MapPin, Sun, Moon } from "lucide-react";
 
 const AIRBNB_URL =
   "https://www.airbnb.com.br/rooms/1652473266637923212?source_impression_id=p3_1787857808_P3p_Rc0eOaL3LEP7&review_page_entrypoint=show_all";
@@ -24,6 +24,22 @@ const navLinks = [
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  // Initialize theme from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem('chale-theme');
+    const dark = stored === 'dark';
+    setIsDark(dark);
+    document.documentElement.classList.toggle('dark', dark);
+  }, []);
+
+  const toggleTheme = () => {
+    const newDark = !isDark;
+    setIsDark(newDark);
+    document.documentElement.classList.toggle('dark', newDark);
+    localStorage.setItem('chale-theme', newDark ? 'dark' : 'light');
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -101,6 +117,18 @@ export const Navbar: React.FC = () => {
               </svg>
               Falar no WhatsApp
             </a>
+
+            {/* Toggle Tema */}
+            <button
+              onClick={toggleTheme}
+              className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white backdrop-blur-md transition-all duration-300 shadow-md"
+              aria-label={isDark ? 'Mudar para modo claro' : 'Mudar para modo escuro'}
+              title={isDark ? 'Modo claro' : 'Modo escuro'}
+            >
+              {isDark
+                ? <Sun className="w-4 h-4" />
+                : <Moon className="w-4 h-4" />}
+            </button>
 
             {/* Menu Hambúrguer elegante */}
             <button

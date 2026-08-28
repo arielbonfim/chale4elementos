@@ -76,7 +76,18 @@ export const Footer: React.FC = () => {
 
         {/* ── Divider ── */}
         <div className="border-t border-white/6 pt-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/20">
-          <p>© {new Date().getFullYear()} Chalé 4 Elementos — Todos os direitos reservados.</p>
+          <p>
+            © {new Date().getFullYear()} Chalé 4 Elementos — Todos os direitos reservados.
+            <span className="mx-2 text-white/10">·</span>
+            <a
+              href="https://www.instagram.com/arielsbonfim/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white/50 transition-colors"
+            >
+              site por Bonfim
+            </a>
+          </p>
 
           {/* Airbnb — discreto, no rodapé */}
           <a

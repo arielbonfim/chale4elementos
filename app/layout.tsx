@@ -36,8 +36,16 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preload hero video for instant playback */}
+        <link rel="preload" href="/videos/v2.mp4" as="video" type="video/mp4" />
+        {/* Anti-flash: reads saved theme before first paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('chale-theme');if(t==='dark')document.documentElement.classList.add('dark');}catch(e){}})();`,
+          }}
+        />
       </head>
-      <body className="antialiased bg-preto text-branco">
+      <body className="antialiased">
         {children}
       </body>
     </html>

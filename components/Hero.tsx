@@ -27,9 +27,11 @@ export const Hero: React.FC = () => {
           loop
           muted
           playsInline
-          poster="/images/hero-fallback.jpg"
+          preload="auto"
+          poster="/images/fachada.webp"
           className="w-full h-full object-cover scale-105"
         >
+          <source src="/api/video?v=v2" type="video/mp4" />
           <source src="/videos/v2.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-hero-overlay" />

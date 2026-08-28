@@ -16,7 +16,7 @@ import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-preto text-branco selection:bg-terracota selection:text-white">
+    <main className="min-h-screen selection:bg-terracota selection:text-white">
       <Navbar />
       <Hero />
       <OChale />
