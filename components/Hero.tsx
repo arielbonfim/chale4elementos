@@ -28,7 +28,7 @@ export const Hero: React.FC = () => {
           muted
           playsInline
           preload="auto"
-          poster="/images/fachada.webp"
+          poster="/images/ochaleanoitecer.webp"
           className="w-full h-full object-cover scale-105"
         >
           <source src="/api/video?v=v2" type="video/mp4" />

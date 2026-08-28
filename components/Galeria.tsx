@@ -22,23 +22,79 @@ const wrap = (index: number) => ((index % total) + total) % total;
 
 export const Galeria: React.FC = () => {
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const [dragOffset, setDragOffset] = useState(0);
-  const [isPointerDown, setIsPointerDown] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  // translateX offset in px — 0 means current slide centered
+  const [offset, setOffset] = useState(0);
+  const [animating, setAnimating] = useState(false);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const startX = useRef(0);
+  const startOffset = useRef(0);
+  const lastTime = useRef(0);
+  const lastX = useRef(0);
+  const velocity = useRef(0);
 
-  const prevIdx = lightbox !== null ? wrap(lightbox - 1) : 0;
-  const nextIdx = lightbox !== null ? wrap(lightbox + 1) : 0;
+  const getSlideWidth = useCallback(() => containerRef.current?.offsetWidth ?? 400, []);
 
   const goTo = useCallback((index: number) => {
-    setDragOffset(0);
+    setOffset(0);
+    setAnimating(false);
     setLightbox(wrap(index));
   }, []);
 
-  const goPrev = useCallback(() => goTo((lightbox ?? 0) - 1), [lightbox, goTo]);
-  const goNext = useCallback(() => goTo((lightbox ?? 0) + 1), [lightbox, goTo]);
-  const close = useCallback(() => { setDragOffset(0); setLightbox(null); }, []);
+  const goPrev = useCallback(() => {
+    const w = getSlideWidth();
+    setAnimating(true);
+    setOffset(w);
+    setTimeout(() => {
+      setLightbox((prev) => wrap((prev ?? 0) - 1));
+      setOffset(0);
+      setAnimating(false);
+    }, 300);
+  }, [getSlideWidth]);
+
+  const goNext = useCallback(() => {
+    const w = getSlideWidth();
+    setAnimating(true);
+    setOffset(-w);
+    setTimeout(() => {
+      setLightbox((prev) => wrap((prev ?? 0) + 1));
+      setOffset(0);
+      setAnimating(false);
+    }, 300);
+  }, [getSlideWidth]);
+
+  const close = useCallback(() => {
+    setOffset(0);
+    setAnimating(false);
+    setLightbox(null);
+  }, []);
+
+  // Snap to nearest slide after drag ends
+  const snapToNearest = useCallback((currentOffset: number, vel: number) => {
+    const w = getSlideWidth();
+    // Factor in velocity for momentum
+    const projected = currentOffset + vel * 0.15;
+    let targetSlideOffset = 0;
+
+    if (Math.abs(projected) > w * 0.2) {
+      // Moved enough to go to next/prev
+      targetSlideOffset = projected > 0 ? w : -w;
+    }
+
+    setAnimating(true);
+    setOffset(targetSlideOffset);
+
+    setTimeout(() => {
+      if (targetSlideOffset > 0) {
+        setLightbox((prev) => wrap((prev ?? 0) - 1));
+      } else if (targetSlideOffset < 0) {
+        setLightbox((prev) => wrap((prev ?? 0) + 1));
+      }
+      setOffset(0);
+      setAnimating(false);
+    }, 300);
+  }, [getSlideWidth]);
 
   // Lock body scroll when lightbox is open
   useEffect(() => {
@@ -72,53 +128,73 @@ export const Galeria: React.FC = () => {
     return () => window.removeEventListener("keydown", h);
   }, [lightbox, goPrev, goNext, close]);
 
-  // Touch handlers for mobile swipe
+  // Touch handlers — image follows finger 1:1
   const onTouchStart = useCallback((e: React.TouchEvent) => {
-    startX.current = e.touches[0].clientX;
-    setIsPointerDown(true);
-  }, []);
+    if (animating) return;
+    const x = e.touches[0].clientX;
+    startX.current = x;
+    startOffset.current = offset;
+    lastX.current = x;
+    lastTime.current = Date.now();
+    velocity.current = 0;
+    setIsDragging(true);
+    setAnimating(false);
+  }, [animating, offset]);
 
   const onTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isPointerDown) return;
-    const dx = e.touches[0].clientX - startX.current;
-    setDragOffset(dx);
-  }, [isPointerDown]);
-
-  const onTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (!isPointerDown) return;
-    setIsPointerDown(false);
-    const w = containerRef.current?.offsetWidth ?? 400;
-    const endX = e.changedTouches[0].clientX;
-    const delta = endX - startX.current;
-    setDragOffset(0);
-    if (Math.abs(delta) > w * 0.15) {
-      if (delta < 0) goNext();
-      else goPrev();
+    if (!isDragging) return;
+    const x = e.touches[0].clientX;
+    const now = Date.now();
+    const dt = now - lastTime.current;
+    if (dt > 0) {
+      velocity.current = (x - lastX.current) / dt * 1000; // px/s
     }
-  }, [isPointerDown, goNext, goPrev]);
+    lastX.current = x;
+    lastTime.current = now;
+    setOffset(startOffset.current + (x - startX.current));
+  }, [isDragging]);
 
-  // Mouse handlers for desktop drag
+  const onTouchEnd = useCallback(() => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    snapToNearest(offset, velocity.current);
+  }, [isDragging, offset, snapToNearest]);
+
+  // Mouse handlers for desktop
   const onMouseDown = useCallback((e: React.MouseEvent) => {
+    if (animating) return;
     startX.current = e.clientX;
-    setIsPointerDown(true);
-  }, []);
+    startOffset.current = offset;
+    lastX.current = e.clientX;
+    lastTime.current = Date.now();
+    velocity.current = 0;
+    setIsDragging(true);
+    setAnimating(false);
+  }, [animating, offset]);
 
   const onMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!isPointerDown) return;
-    setDragOffset(e.clientX - startX.current);
-  }, [isPointerDown]);
-
-  const onMouseUp = useCallback((e: React.MouseEvent) => {
-    if (!isPointerDown) return;
-    setIsPointerDown(false);
-    const w = containerRef.current?.offsetWidth ?? 400;
-    const delta = e.clientX - startX.current;
-    setDragOffset(0);
-    if (Math.abs(delta) > w * 0.2) {
-      if (delta < 0) goNext();
-      else goPrev();
+    if (!isDragging) return;
+    const x = e.clientX;
+    const now = Date.now();
+    const dt = now - lastTime.current;
+    if (dt > 0) {
+      velocity.current = (x - lastX.current) / dt * 1000;
     }
-  }, [isPointerDown, goNext, goPrev]);
+    lastX.current = x;
+    lastTime.current = now;
+    setOffset(startOffset.current + (x - startX.current));
+  }, [isDragging]);
+
+  const onMouseUp = useCallback(() => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    snapToNearest(offset, velocity.current);
+  }, [isDragging, offset, snapToNearest]);
+
+  // Build visible slides: prev2, prev, current, next, next2
+  const visibleIndices = lightbox !== null
+    ? [-2, -1, 0, 1, 2].map((o) => wrap(lightbox + o))
+    : [];
 
   const thumbIndices = lightbox !== null
     ? [-2, -1, 0, 1, 2].map((o) => wrap(lightbox + o))
@@ -139,7 +215,7 @@ export const Galeria: React.FC = () => {
             <button
               key={i}
               className={`${photo.span} relative overflow-hidden rounded-xl group focus:outline-none focus-visible:ring-2 focus-visible:ring-terracota`}
-              onClick={() => { setDragOffset(0); setLightbox(i); }}
+              onClick={() => { setOffset(0); setAnimating(false); setLightbox(i); }}
               aria-label={`Ver foto: ${photo.alt}`}
             >
               <Image
@@ -193,23 +269,23 @@ export const Galeria: React.FC = () => {
             onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
-            onMouseLeave={() => { if (isPointerDown) { setIsPointerDown(false); setDragOffset(0); } }}
+            onMouseLeave={() => { if (isDragging) { setIsDragging(false); snapToNearest(offset, velocity.current); } }}
           >
-            {/* Track width 300%: each slide = 33.333% of track = exactly 1 viewport.
-                translateX(-33.333%) positions the middle slide in view. */}
+            {/* 5 slides: each 100% viewport width, centered on slide index 2 (offset 0).
+                translateX = -200% puts the center slide (index 2) in view, then we add the drag offset. */}
             <div
               className="flex h-full items-center"
               style={{
-                width: "300%",
-                transform: `translateX(calc(-33.333% + ${dragOffset}px))`,
-                transition: isPointerDown ? "none" : "transform 0.32s cubic-bezier(0.25,0.46,0.45,0.94)",
+                width: "500%",
+                transform: `translateX(calc(-40% + ${offset}px))`,
+                transition: isDragging ? "none" : "transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
               }}
             >
-              {([prevIdx, lightbox, nextIdx] as number[]).map((idx, slot) => (
+              {visibleIndices.map((idx, slot) => (
                 <div
                   key={slot}
                   className="h-full flex items-center justify-center px-6 sm:px-14"
-                  style={{ width: "33.333%" }}
+                  style={{ width: "20%" }}
                 >
                   <Image
                     src={photos[idx].src}
@@ -217,9 +293,9 @@ export const Galeria: React.FC = () => {
                     width={1200}
                     height={900}
                     className="max-h-full w-auto object-contain pointer-events-none"
-                    style={{ maxHeight: "calc(100vh - 200px)" }}
+                    style={{ maxHeight: "calc(100vh - 240px)" }}
                     draggable={false}
-                    priority={slot === 1}
+                    priority={slot === 2}
                   />
                 </div>
               ))}
