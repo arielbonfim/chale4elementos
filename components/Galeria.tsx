@@ -25,80 +25,103 @@ export const Galeria: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   // translateX offset in px — 0 means current slide centered
   const [offset, setOffset] = useState(0);
-  const [animating, setAnimating] = useState(false);
+  const [withTransition, setWithTransition] = useState(false);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const isDraggingRef = useRef(false);
+  const animatingRef = useRef(false);
+
   const startX = useRef(0);
   const startOffset = useRef(0);
   const lastTime = useRef(0);
   const lastX = useRef(0);
   const velocity = useRef(0);
 
-  const getSlideWidth = useCallback(() => containerRef.current?.offsetWidth ?? 400, []);
+  const getSlideWidth = useCallback(() => {
+    return containerRef.current?.offsetWidth || (typeof window !== "undefined" ? window.innerWidth : 400);
+  }, []);
 
   const goTo = useCallback((index: number) => {
+    if (animatingRef.current) return;
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setWithTransition(false);
     setOffset(0);
-    setAnimating(false);
     setLightbox(wrap(index));
   }, []);
 
   const goPrev = useCallback(() => {
+    if (animatingRef.current) return;
     const w = getSlideWidth();
-    setAnimating(true);
+    animatingRef.current = true;
+    setWithTransition(true);
     setOffset(w);
-    setTimeout(() => {
-      setAnimating(false);
-      requestAnimationFrame(() => {
-        setLightbox((prev) => wrap((prev ?? 0) - 1));
-        setOffset(0);
-      });
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setWithTransition(false);
+      setLightbox((prev) => wrap((prev ?? 0) - 1));
+      setOffset(0);
+      animatingRef.current = false;
     }, 300);
   }, [getSlideWidth]);
 
   const goNext = useCallback(() => {
+    if (animatingRef.current) return;
     const w = getSlideWidth();
-    setAnimating(true);
+    animatingRef.current = true;
+    setWithTransition(true);
     setOffset(-w);
-    setTimeout(() => {
-      setAnimating(false);
-      requestAnimationFrame(() => {
-        setLightbox((prev) => wrap((prev ?? 0) + 1));
-        setOffset(0);
-      });
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setWithTransition(false);
+      setLightbox((prev) => wrap((prev ?? 0) + 1));
+      setOffset(0);
+      animatingRef.current = false;
     }, 300);
   }, [getSlideWidth]);
 
   const close = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    animatingRef.current = false;
+    isDraggingRef.current = false;
+    setIsDragging(false);
+    setWithTransition(false);
     setOffset(0);
-    setAnimating(false);
     setLightbox(null);
   }, []);
 
   // Snap to nearest slide after drag ends
   const snapToNearest = useCallback((currentOffset: number, vel: number) => {
     const w = getSlideWidth();
-    // Factor in velocity for momentum
-    const projected = currentOffset + vel * 0.15;
+    const flickThreshold = 250; // px/s
     let targetSlideOffset = 0;
 
-    if (Math.abs(projected) > w * 0.2) {
-      // Moved enough to go to next/prev
-      targetSlideOffset = projected > 0 ? w : -w;
+    if (currentOffset < -w * 0.18 || vel < -flickThreshold) {
+      targetSlideOffset = -w;
+    } else if (currentOffset > w * 0.18 || vel > flickThreshold) {
+      targetSlideOffset = w;
+    } else {
+      targetSlideOffset = 0;
     }
 
-    setAnimating(true);
+    animatingRef.current = true;
+    setWithTransition(true);
     setOffset(targetSlideOffset);
 
-    setTimeout(() => {
-      setAnimating(false);
-      requestAnimationFrame(() => {
-        if (targetSlideOffset > 0) {
-          setLightbox((prev) => wrap((prev ?? 0) - 1));
-        } else if (targetSlideOffset < 0) {
-          setLightbox((prev) => wrap((prev ?? 0) + 1));
-        }
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      if (targetSlideOffset > 0) {
+        setWithTransition(false);
+        setLightbox((prev) => wrap((prev ?? 0) - 1));
         setOffset(0);
-      });
+      } else if (targetSlideOffset < 0) {
+        setWithTransition(false);
+        setLightbox((prev) => wrap((prev ?? 0) + 1));
+        setOffset(0);
+      } else {
+        setWithTransition(false);
+      }
+      animatingRef.current = false;
     }, 300);
   }, [getSlideWidth]);
 
@@ -134,68 +157,80 @@ export const Galeria: React.FC = () => {
     return () => window.removeEventListener("keydown", h);
   }, [lightbox, goPrev, goNext, close]);
 
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
   // Touch handlers — image follows finger 1:1
   const onTouchStart = useCallback((e: React.TouchEvent) => {
-    if (animating) return;
+    if (animatingRef.current) return;
+    if (timerRef.current) clearTimeout(timerRef.current);
     const x = e.touches[0].clientX;
     startX.current = x;
     startOffset.current = offset;
     lastX.current = x;
     lastTime.current = Date.now();
     velocity.current = 0;
+    isDraggingRef.current = true;
     setIsDragging(true);
-    setAnimating(false);
-  }, [animating, offset]);
+    setWithTransition(false);
+  }, [offset]);
 
   const onTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isDragging) return;
+    if (!isDraggingRef.current) return;
     const x = e.touches[0].clientX;
     const now = Date.now();
     const dt = now - lastTime.current;
     if (dt > 0) {
-      velocity.current = (x - lastX.current) / dt * 1000; // px/s
+      velocity.current = ((x - lastX.current) / dt) * 1000; // px/s
     }
     lastX.current = x;
     lastTime.current = now;
     setOffset(startOffset.current + (x - startX.current));
-  }, [isDragging]);
+  }, []);
 
   const onTouchEnd = useCallback(() => {
-    if (!isDragging) return;
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
     setIsDragging(false);
     snapToNearest(offset, velocity.current);
-  }, [isDragging, offset, snapToNearest]);
+  }, [offset, snapToNearest]);
 
   // Mouse handlers for desktop
   const onMouseDown = useCallback((e: React.MouseEvent) => {
-    if (animating) return;
+    if (animatingRef.current) return;
+    if (timerRef.current) clearTimeout(timerRef.current);
     startX.current = e.clientX;
     startOffset.current = offset;
     lastX.current = e.clientX;
     lastTime.current = Date.now();
     velocity.current = 0;
+    isDraggingRef.current = true;
     setIsDragging(true);
-    setAnimating(false);
-  }, [animating, offset]);
+    setWithTransition(false);
+  }, [offset]);
 
   const onMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!isDragging) return;
+    if (!isDraggingRef.current) return;
     const x = e.clientX;
     const now = Date.now();
     const dt = now - lastTime.current;
     if (dt > 0) {
-      velocity.current = (x - lastX.current) / dt * 1000;
+      velocity.current = ((x - lastX.current) / dt) * 1000;
     }
     lastX.current = x;
     lastTime.current = now;
     setOffset(startOffset.current + (x - startX.current));
-  }, [isDragging]);
+  }, []);
 
   const onMouseUp = useCallback(() => {
-    if (!isDragging) return;
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
     setIsDragging(false);
     snapToNearest(offset, velocity.current);
-  }, [isDragging, offset, snapToNearest]);
+  }, [offset, snapToNearest]);
 
   // Build visible slides: prev2, prev, current, next, next2
   const visibleIndices = lightbox !== null
@@ -221,7 +256,7 @@ export const Galeria: React.FC = () => {
             <button
               key={i}
               className={`${photo.span} relative overflow-hidden rounded-xl group focus:outline-none focus-visible:ring-2 focus-visible:ring-terracota`}
-              onClick={() => { setOffset(0); setAnimating(false); setLightbox(i); }}
+              onClick={() => { setWithTransition(false); setOffset(0); setLightbox(i); }}
               aria-label={`Ver foto: ${photo.alt}`}
             >
               <Image
@@ -272,10 +307,17 @@ export const Galeria: React.FC = () => {
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
+            onTouchCancel={onTouchEnd}
             onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
-            onMouseLeave={() => { if (isDragging) { setIsDragging(false); snapToNearest(offset, velocity.current); } }}
+            onMouseLeave={() => {
+              if (isDraggingRef.current) {
+                isDraggingRef.current = false;
+                setIsDragging(false);
+                snapToNearest(offset, velocity.current);
+              }
+            }}
           >
             {/* 5 slides: each 100% viewport width, centered on slide index 2 (offset 0).
                 translateX = -200% puts the center slide (index 2) in view, then we add the drag offset. */}
@@ -284,7 +326,10 @@ export const Galeria: React.FC = () => {
               style={{
                 width: "500%",
                 transform: `translateX(calc(-40% + ${offset}px))`,
-                transition: isDragging ? "none" : "transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                transition: withTransition
+                  ? "transform 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+                  : "none",
+                willChange: isDragging ? "transform" : "auto",
               }}
             >
               {visibleIndices.map((idx, slot) => (
