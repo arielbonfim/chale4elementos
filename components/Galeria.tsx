@@ -47,9 +47,11 @@ export const Galeria: React.FC = () => {
     setAnimating(true);
     setOffset(w);
     setTimeout(() => {
-      setLightbox((prev) => wrap((prev ?? 0) - 1));
-      setOffset(0);
       setAnimating(false);
+      requestAnimationFrame(() => {
+        setLightbox((prev) => wrap((prev ?? 0) - 1));
+        setOffset(0);
+      });
     }, 300);
   }, [getSlideWidth]);
 
@@ -58,9 +60,11 @@ export const Galeria: React.FC = () => {
     setAnimating(true);
     setOffset(-w);
     setTimeout(() => {
-      setLightbox((prev) => wrap((prev ?? 0) + 1));
-      setOffset(0);
       setAnimating(false);
+      requestAnimationFrame(() => {
+        setLightbox((prev) => wrap((prev ?? 0) + 1));
+        setOffset(0);
+      });
     }, 300);
   }, [getSlideWidth]);
 
@@ -86,13 +90,15 @@ export const Galeria: React.FC = () => {
     setOffset(targetSlideOffset);
 
     setTimeout(() => {
-      if (targetSlideOffset > 0) {
-        setLightbox((prev) => wrap((prev ?? 0) - 1));
-      } else if (targetSlideOffset < 0) {
-        setLightbox((prev) => wrap((prev ?? 0) + 1));
-      }
-      setOffset(0);
       setAnimating(false);
+      requestAnimationFrame(() => {
+        if (targetSlideOffset > 0) {
+          setLightbox((prev) => wrap((prev ?? 0) - 1));
+        } else if (targetSlideOffset < 0) {
+          setLightbox((prev) => wrap((prev ?? 0) + 1));
+        }
+        setOffset(0);
+      });
     }, 300);
   }, [getSlideWidth]);
 
