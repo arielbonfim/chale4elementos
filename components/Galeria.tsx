@@ -40,6 +40,27 @@ export const Galeria: React.FC = () => {
   const goNext = useCallback(() => goTo((lightbox ?? 0) + 1), [lightbox, goTo]);
   const close = useCallback(() => { setDragOffset(0); setLightbox(null); }, []);
 
+  // Lock body scroll when lightbox is open
+  useEffect(() => {
+    if (lightbox === null) return;
+    const scrollY = window.scrollY;
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      window.scrollTo(0, scrollY);
+    };
+  }, [lightbox]);
+
   useEffect(() => {
     if (lightbox === null) return;
     const h = (e: KeyboardEvent) => {
@@ -51,18 +72,43 @@ export const Galeria: React.FC = () => {
     return () => window.removeEventListener("keydown", h);
   }, [lightbox, goPrev, goNext, close]);
 
-  const onPointerDown = useCallback((e: React.PointerEvent) => {
-    startX.current = e.clientX;
+  // Touch handlers for mobile swipe
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    startX.current = e.touches[0].clientX;
     setIsPointerDown(true);
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   }, []);
 
-  const onPointerMove = useCallback((e: React.PointerEvent) => {
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isPointerDown) return;
+    const dx = e.touches[0].clientX - startX.current;
+    setDragOffset(dx);
+  }, [isPointerDown]);
+
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!isPointerDown) return;
+    setIsPointerDown(false);
+    const w = containerRef.current?.offsetWidth ?? 400;
+    const endX = e.changedTouches[0].clientX;
+    const delta = endX - startX.current;
+    setDragOffset(0);
+    if (Math.abs(delta) > w * 0.15) {
+      if (delta < 0) goNext();
+      else goPrev();
+    }
+  }, [isPointerDown, goNext, goPrev]);
+
+  // Mouse handlers for desktop drag
+  const onMouseDown = useCallback((e: React.MouseEvent) => {
+    startX.current = e.clientX;
+    setIsPointerDown(true);
+  }, []);
+
+  const onMouseMove = useCallback((e: React.MouseEvent) => {
     if (!isPointerDown) return;
     setDragOffset(e.clientX - startX.current);
   }, [isPointerDown]);
 
-  const onPointerUp = useCallback((e: React.PointerEvent) => {
+  const onMouseUp = useCallback((e: React.MouseEvent) => {
     if (!isPointerDown) return;
     setIsPointerDown(false);
     const w = containerRef.current?.offsetWidth ?? 400;
@@ -127,16 +173,27 @@ export const Galeria: React.FC = () => {
             <X className="w-6 h-6" />
           </button>
 
+          {/* Description above bottom bar */}
+          <p
+            className="absolute inset-x-0 text-center text-xs sm:text-sm text-white/50 font-light px-6 truncate max-w-lg mx-auto z-10"
+            style={{ bottom: "168px" }}
+          >
+            {photos[lightbox].alt}
+          </p>
+
           {/* Carousel viewport */}
           <div
             ref={containerRef}
-            className="absolute inset-x-0 top-0 overflow-hidden cursor-grab active:cursor-grabbing"
-            style={{ bottom: "152px" }}
+            className="absolute inset-x-0 top-0 overflow-hidden cursor-grab active:cursor-grabbing touch-none"
+            style={{ bottom: "192px" }}
             onClick={(e) => e.stopPropagation()}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerCancel={() => { setIsPointerDown(false); setDragOffset(0); }}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+            onMouseLeave={() => { if (isPointerDown) { setIsPointerDown(false); setDragOffset(0); } }}
           >
             {/* Track width 300%: each slide = 33.333% of track = exactly 1 viewport.
                 translateX(-33.333%) positions the middle slide in view. */}
@@ -174,9 +231,6 @@ export const Galeria: React.FC = () => {
             className="absolute bottom-0 inset-x-0 h-[152px] flex flex-col items-center justify-end gap-3 pb-6 px-4 bg-gradient-to-t from-preto/90 to-transparent"
             onClick={(e) => e.stopPropagation()}
           >
-            <p className="text-center text-xs sm:text-sm text-white/45 font-light px-4 truncate max-w-lg">
-              {photos[lightbox].alt}
-            </p>
 
             <div className="flex items-center gap-2">
               {thumbIndices.map((photoIdx, thumbPos) => {
